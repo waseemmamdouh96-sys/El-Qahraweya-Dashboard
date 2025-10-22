@@ -22,7 +22,7 @@
             color: #fff;
         }
 
-        /* ==================== ANIMATED BACKGROUND ==================== */
+        /* ==================== ANIMATED BACKGROUND (ENHANCED) ==================== */
         body::before {
             content: '';
             position: fixed;
@@ -30,10 +30,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at top left, rgba(138, 43, 226, 0.15), transparent 50%),
-                        radial-gradient(ellipse at bottom right, rgba(0, 191, 255, 0.15), transparent 50%);
-            animation: backgroundPulse 20s ease-in-out infinite;
+            background: 
+                radial-gradient(ellipse at top left, rgba(138, 43, 226, 0.15), transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(0, 191, 255, 0.15), transparent 50%),
+                linear-gradient(330deg, rgba(138, 43, 226, 0.1) 0%, rgba(0, 191, 255, 0.05) 50%, transparent 100%);
+            background-size: 200% 200%;
+            animation: 
+                backgroundPulse 25s ease-in-out infinite,
+                flow 35s ease-in-out infinite alternate;
             z-index: -2;
+        }
+
+        @keyframes flow {
+            from { background-position: 0% 0%; }
+            to { background-position: 100% 100%; }
         }
 
         body::after {
@@ -218,7 +228,7 @@
             font-family: inherit;
         }
 
-        /* ==================== BUTTONS ==================== */
+        /* ==================== BUTTONS (ENHANCED) ==================== */
         .btn {
             padding: 12px 24px;
             border: none;
@@ -247,6 +257,12 @@
         .btn:hover::after {
             width: 250px;
             height: 250px;
+        }
+
+        /* NEW: Active state for button press feedback */
+        .btn:active:not(:disabled) {
+            transform: translateY(1px) scale(0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
         }
 
         .btn-login {
@@ -566,7 +582,7 @@
             text-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
         }
 
-        /* ==================== STATS GRID ==================== */
+        /* ==================== STATS GRID (ENHANCED) ==================== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -581,10 +597,15 @@
             border-radius: 18px;
             box-shadow: 0 12px 40px rgba(138, 43, 226, 0.4);
             border: 1px solid rgba(138, 43, 226, 0.4);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             animation: statSlide 0.6s ease-out;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncier transition */
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.03); /* More pronounced */
+            box-shadow: 0 20px 50px rgba(138, 43, 226, 0.5), 0 0 25px rgba(0, 191, 255, 0.4); /* Glow effect */
         }
 
         @keyframes statSlide {
@@ -606,11 +627,6 @@
         @keyframes statRotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-
-        .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 18px 50px rgba(138, 43, 226, 0.6);
         }
 
         .stat-card:nth-child(1) { border-top: 4px solid #8a2be2; }
@@ -639,7 +655,7 @@
             font-weight: 600;
         }
 
-        /* ==================== QUESTIONS ==================== */
+        /* ==================== QUESTIONS (ENHANCED) ==================== */
         .question-list {
             display: grid;
             gap: 22px;
@@ -650,21 +666,21 @@
             border-radius: 16px;
             padding: 24px;
             border-left: 5px solid #8a2be2;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             animation: cardSlide 0.5s ease-out;
             border: 1px solid rgba(138, 43, 226, 0.3);
             backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .question-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.4);
+            border-left-color: #00bfff;
         }
 
         @keyframes cardSlide {
             from { opacity: 0; transform: translateX(-30px); }
             to { opacity: 1; transform: translateX(0); }
-        }
-
-        .question-card:hover {
-            box-shadow: 0 12px 40px rgba(138, 43, 226, 0.4);
-            transform: translateX(-8px);
-            border-left-color: #00bfff;
         }
 
         .question-header {
@@ -709,6 +725,7 @@
             border-radius: 10px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
             border: 1px solid rgba(138, 43, 226, 0.3);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -785,7 +802,7 @@
             color: #00bfff;
         }
 
-        /* ==================== TABLES ==================== */
+        /* ==================== TABLES (ENHANCED) ==================== */
         .results-table, .codes-table {
             width: 100%;
             border-collapse: collapse;
@@ -817,10 +834,11 @@
         .codes-table td {
             color: #fff;
             font-weight: 500;
+            transition: background-color 0.3s;
         }
 
-        .results-table tr:hover,
-        .codes-table tr:hover {
+        .results-table tr:hover td,
+        .codes-table tr:hover td {
             background: rgba(138, 43, 226, 0.15);
         }
 
@@ -897,7 +915,7 @@
             box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
         }
 
-        /* ==================== ADMIN MANAGEMENT ==================== */
+        /* ==================== ADMIN MANAGEMENT (ENHANCED) ==================== */
         .admin-list {
             display: grid;
             gap: 18px;
@@ -911,21 +929,21 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(138, 43, 226, 0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             animation: adminSlide 0.5s ease-out;
             flex-wrap: wrap;
             gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .admin-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.4);
+            background: rgba(138, 43, 226, 0.15);
         }
 
         @keyframes adminSlide {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .admin-card:hover {
-            background: rgba(138, 43, 226, 0.15);
-            box-shadow: 0 12px 40px rgba(138, 43, 226, 0.4);
-            transform: translateY(-5px);
         }
 
         .admin-info {
@@ -1225,6 +1243,53 @@
             transform: translateX(26px);
         }
 
+        /* ==================== ANSWERS MODAL STYLES ==================== */
+        .answer-detail-card {
+            background: rgba(10, 10, 20, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 18px;
+            border-left: 4px solid #8a2be2;
+        }
+        .answer-detail-header {
+            color: #00bfff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+        }
+        .answer-detail-card .choice-item {
+            cursor: default;
+        }
+        .answer-detail-card .choice-item:hover {
+            transform: none; /* Disable hover effect */
+        }
+        .answer-detail-card .correct-answer {
+            background: rgba(0, 191, 255, 0.2);
+            border-color: #00bfff;
+        }
+        .answer-detail-card .selected-incorrect {
+            background: rgba(255, 51, 102, 0.2);
+            border-color: #ff3366;
+        }
+        .incorrect-badge {
+            background: #ff3366;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .timeout-info {
+            background: rgba(255, 165, 0, 0.15);
+            border: 1px solid #ffa500;
+            color: #ffa500;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
         /* ==================== UTILITY CLASSES ==================== */
         .hidden {
             display: none !important;
@@ -1481,6 +1546,16 @@
         </div>
     </div>
 
+    <div class="modal" id="answersModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 id="answersModalTitle">تفاصيل الإجابات</h3>
+                <button class="close-modal" onclick="closeAnswersModal()">×</button>
+            </div>
+            <div id="answersModalBody"></div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getDatabase, ref, set, get, update, remove, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
@@ -1561,7 +1636,10 @@
         document.getElementById('examStatusToggle').checked = DB.quizState.isActive;
     }
 
-    async function loadQuestions() { DB.questions = Object.values(await loadFromFirebase('questions') || {}); }
+    async function loadQuestions() {
+        const data = await loadFromFirebase('questions') || {};
+        DB.questions = Object.values(data).sort((a, b) => a.id - b.id);
+    }
     async function loadResults() { DB.results = Object.values(await loadFromFirebase('results') || {}); }
     async function loadOrganization() { DB.organization = await loadFromFirebase('organization') || {}; }
     async function loadLogs() { DB.activityLogs = Object.values(await loadFromFirebase('activityLogs') || []).sort((a,b) => b.id - a.id); }
@@ -1574,8 +1652,12 @@
             updateStats(); if (document.getElementById('resultsTab').classList.contains('active')) displayResults();
         });
         onValue(ref(database, 'questions'), snapshot => {
-            DB.questions = snapshot.exists() ? Object.values(snapshot.val()) : [];
-            updateStats(); if (document.getElementById('questionsTab').classList.contains('active')) displayQuestions();
+            const data = snapshot.exists() ? snapshot.val() : {};
+            DB.questions = Object.values(data).sort((a, b) => a.id - b.id);
+            updateStats();
+            if (document.getElementById('questionsTab').classList.contains('active')) {
+                displayQuestions();
+            }
         });
         onValue(ref(database, 'accessCodes'), snapshot => {
             DB.accessCodes = snapshot.exists() ? Object.values(snapshot.val()) : [];
@@ -1638,7 +1720,7 @@
     async function handleExamStatusToggle(event) {
         if (!hasPermission(['super', 'admin'])) {
             showAlert('error', 'ليس لديك صلاحية لتغيير حالة الامتحان');
-            event.target.checked = !event.target.checked; // Revert UI change
+            event.target.checked = !event.target.checked;
             return;
         }
         const isActive = event.target.checked;
@@ -1648,7 +1730,7 @@
         showAlert('success', `تم ${isActive ? 'فتح' : 'إغلاق'} الامتحان بنجاح`);
     }
 
-    function loadDashboard() { updateStats(); }
+    function loadDashboard() { updateStats(true); } // Animate on first load
     function getRoleLabel(role) { return { 'super': 'مشرف عام', 'admin': 'مشرف', 'editor': 'محرر' }[role] || role; }
     function hasPermission(roles) { return currentUser && roles.includes(currentUser.role); }
 
@@ -1690,17 +1772,17 @@
         const displayActions = {
             'questions': displayQuestions, 'results': displayResults, 'codes': displayCodes,
             'admins': displayAdmins, 'logs': displayLogs, 'organization': loadOrgData,
-            'overview': updateStats, 'profile': loadProfileData
+            'overview': () => updateStats(true), // Animate when switching to tab
+            'profile': loadProfileData
         };
         if (displayActions[tabName]) displayActions[tabName]();
     }
     
-    // ==================== DATA MANIPULATION & UI UPDATES (FINAL FIX) ====================
+    // ==================== DATA MANIPULATION & UI UPDATES ====================
     async function resetCode(code) {
         if (!hasPermission(['super', 'admin', 'editor'])) { showAlert('error', 'ليس لديك صلاحية'); return; }
         if (confirm(`هل أنت متأكد من إعادة تعيين الكود ${code}؟`)) {
             const { database, ref, update } = window.firebaseDB;
-            // Send command to Firebase and let the listener handle the UI update.
             await update(ref(database, `accessCodes/${code}`), { used: false, usedBy: null, usedAt: null });
             addLog(`تم إعادة تعيين الكود ${code}`, currentUser.name);
             showAlert('success', `تم إعادة تعيين الكود ${code} بنجاح`);
@@ -1714,7 +1796,6 @@
             if (!result) { showAlert('error', 'لم يتم العثور على النتيجة'); return; }
             
             const { database, ref, remove, update } = window.firebaseDB;
-            // Send commands to Firebase. The onValue listener will handle the UI update.
             await remove(ref(database, `results/${id}`));
             if (result.code) {
                 await update(ref(database, `accessCodes/${result.code}`), { used: false, usedBy: null, usedAt: null });
@@ -1733,7 +1814,6 @@
             });
             
             const { database, ref, set } = window.firebaseDB;
-            // Overwrite data on Firebase. Listener will catch the change.
             await Promise.all([
                 set(ref(database, 'accessCodes'), freshCodes),
                 set(ref(database, 'results'), null)
@@ -1743,18 +1823,57 @@
             showAlert('success', 'تم إعادة تعيين كل شيء بنجاح');
         }
     }
+
+    // NEW: Function to animate values
+    function animateValue(element, start, end, duration) {
+        if (start === end) return;
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            element.textContent = Math.floor(progress * (end - start) + start);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
     
-    function updateStats() {
-        document.getElementById('totalQuestions').textContent = DB.questions.length;
-        document.getElementById('totalResults').textContent = DB.results.length;
-        const availableCount = DB.accessCodes.filter(c => c.used === false).length;
-        document.getElementById('totalCodes').textContent = availableCount;
-        if (DB.results.length > 0) {
+    // UPDATED: updateStats with animation logic
+    function updateStats(shouldAnimate = false) {
+        const totalQuestionsEl = document.getElementById('totalQuestions');
+        const totalResultsEl = document.getElementById('totalResults');
+        const totalCodesEl = document.getElementById('totalCodes');
+        const avgScoreEl = document.getElementById('avgScore');
+
+        const newQuestions = DB.questions.length;
+        const newResults = DB.results.length;
+        const newCodes = DB.accessCodes.filter(c => !c.used).length;
+        let newAvg = 0;
+        if (newResults > 0) {
             const totalPercentage = DB.results.reduce((sum, r) => sum + r.percentage, 0);
-            const avgPercentage = Math.round(totalPercentage / DB.results.length);
-            document.getElementById('avgScore').textContent = avgPercentage + '%';
+            newAvg = Math.round(totalPercentage / newResults);
+        }
+
+        if (shouldAnimate) {
+            animateValue(totalQuestionsEl, 0, newQuestions, 1000);
+            animateValue(totalResultsEl, 0, newResults, 1000);
+            animateValue(totalCodesEl, 0, newCodes, 1000);
+            
+            let startTimestamp = null;
+            const duration = 1000;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                avgScoreEl.textContent = Math.floor(progress * newAvg) + '%';
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
         } else {
-            document.getElementById('avgScore').textContent = '0%';
+            totalQuestionsEl.textContent = newQuestions;
+            totalResultsEl.textContent = newResults;
+            totalCodesEl.textContent = newCodes;
+            avgScoreEl.textContent = newAvg + '%';
         }
     }
 
@@ -1765,12 +1884,12 @@
             questionList.innerHTML = '<p style="text-align: center; color: #8a2be2; padding: 50px; font-size: 1.1rem;">لا توجد أسئلة حالياً</p>';
             return;
         }
-        DB.questions.sort((a,b) => a.id - b.id).forEach(q => {
+        DB.questions.forEach((q, index) => {
             const card = document.createElement('div');
             card.className = 'question-card';
             card.innerHTML = `
                 <div class="question-header">
-                    <span class="question-id">السؤال #${q.id}</span>
+                    <span class="question-id">السؤال #${index + 1}</span>
                     <div class="question-actions">
                         <button class="btn btn-warning" onclick="editQuestion(${q.id})" style="padding: 10px 18px;">✏️ تعديل</button>
                         <button class="btn btn-danger" onclick="deleteQuestion(${q.id})" style="padding: 10px 18px;">🗑️ حذف</button>
@@ -1781,7 +1900,6 @@
                 <div class="choices-list">
                     ${q.choices.map((choice, i) => `
                         <div class="choice-item ${i === q.correctChoice ? 'correct' : ''}">
-                            <span class="choice-badge">${String.fromCharCode(65 + i)}</span>
                             <span class="choice-text">${escapeHtml(choice)}</span>
                             ${i === q.correctChoice ? '<span class="correct-badge">✓ الإجابة الصحيحة</span>' : ''}
                         </div>`).join('')}
@@ -1908,7 +2026,10 @@
                             <td>${result.score} / ${result.total}</td>
                             <td><span class="score-badge ${result.percentage >= 85 ? 'score-excellent' : result.percentage >= 70 ? 'score-good' : result.percentage >= 50 ? 'score-average' : 'score-poor'}">${result.percentage}%</span></td>
                             <td>${new Date(result.date).toLocaleString('ar-EG')}</td>
-                            <td><button class="btn btn-danger" onclick="deleteResult(${result.id})" style="padding: 6px 14px; font-size: 0.9rem;">🗑️ حذف</button></td>
+                            <td>
+                                <button class="btn btn-primary" onclick="openAnswersModal(${result.id})" style="padding: 6px 14px; font-size: 0.9rem; margin-left: 8px;">📊 عرض الإجابات</button>
+                                <button class="btn btn-danger" onclick="deleteResult(${result.id})" style="padding: 6px 14px; font-size: 0.9rem;">🗑️ حذف</button>
+                            </td>
                         </tr>`).join('')}
                 </tbody>
             </table>`;
@@ -2143,6 +2264,72 @@
         document.getElementById('profileNewPassword').value = '';
         document.getElementById('profileConfirmPassword').value = '';
     }
+
+    // ==================== ANSWERS MODAL FUNCTIONS ====================
+    window.openAnswersModal = function(resultId) {
+        const result = DB.results.find(r => r.id === resultId);
+        if (!result) {
+            showAlert('error', 'لم يتم العثور على النتيجة.');
+            return;
+        }
+
+        const modal = document.getElementById('answersModal');
+        const title = document.getElementById('answersModalTitle');
+        const body = document.getElementById('answersModalBody');
+
+        title.textContent = `إجابات: ${escapeHtml(result.name)}`;
+        body.innerHTML = ''; // Clear previous content
+
+        if (!result.answers || result.answers.length === 0) {
+            body.innerHTML = '<p>لا توجد تفاصيل إجابات مسجلة لهذه النتيجة.</p>';
+            modal.classList.add('active');
+            return;
+        }
+
+        let contentHTML = '';
+        result.answers.forEach((answer, index) => {
+            const question = DB.questions.find(q => q.id === answer.questionId);
+            if (!question) return; 
+
+            contentHTML += `<div class="answer-detail-card">`;
+            contentHTML += `<div class="answer-detail-header"><strong>السؤال ${index + 1}:</strong> ${escapeHtml(question.text)}</div>`;
+            contentHTML += `<div class="choices-list">`;
+
+            question.choices.forEach((choiceText, choiceIndex) => {
+                let classes = 'choice-item';
+                let badge = '';
+
+                if (choiceIndex === question.correctChoice) {
+                    classes += ' correct-answer';
+                    badge = '<span class="correct-badge">✓ صحيح</span>';
+                }
+                
+                if (choiceIndex === answer.selectedChoice && !answer.correct) {
+                    classes += ' selected-incorrect';
+                    badge = '<span class="incorrect-badge">✗ إجابتك</span>';
+                }
+
+                contentHTML += `<div class="${classes}">
+                                    <span class="choice-text">${escapeHtml(choiceText)}</span>
+                                    ${badge}
+                                </div>`;
+            });
+            
+            if (answer.selectedChoice === null) {
+                contentHTML += `<div class="timeout-info">لم يتم الإجابة (انتهى الوقت)</div>`;
+            }
+
+            contentHTML += `</div></div>`;
+        });
+
+        body.innerHTML = contentHTML;
+        modal.classList.add('active');
+    }
+
+    window.closeAnswersModal = function() {
+        document.getElementById('answersModal').classList.remove('active');
+    }
+
     </script>
 </body>
 </html>
